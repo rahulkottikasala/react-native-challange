@@ -1,112 +1,47 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Home from "./pages/Home";
+import DrawerContent from "./pages/DrawerContent";
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import Profile from "./drawer/Profile";
+import Settings from "./drawer/Settings";
+import WalletBalance from "./drawer/WalletBalence";
+import Records from "./drawer/Records";
+import Refund from "./drawer/Refund";
+import AboutUs from "./drawer/AboutUs";
+import Help from "./drawer/Help";
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+function MyStack() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Drawer" component={MyDrawer} options={{headerShown:false}}/>
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
   );
-};
+}
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+function MyDrawer() {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props}/>}>
+      <Drawer.Screen name="Home" component={Home} options={{headerShown:false}}/>
+      <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
+      <Drawer.Screen name="Wallet" component={WalletBalance} options={{headerShown:false}}/>
+      <Drawer.Screen name="Records" component={Records} options={{headerShown:false}}/>
+      <Drawer.Screen name="Refund" component={Refund} options={{headerShown:false}}/>
+      <Drawer.Screen name="Settings" component={Settings} options={{headerShown:false}}/>
+      <Drawer.Screen name="AboutUs" component={AboutUs} options={{headerShown:false}}/>
+      <Drawer.Screen name="Help" component={Help} options={{headerShown:false}}/>
+    </Drawer.Navigator>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default function App(){
+  return<NavigationContainer>
+<MyStack/>
+  </NavigationContainer>
+}
