@@ -46,19 +46,23 @@ let deleteBook = id => {
 };
 
 //Update Book
-// let updateBook = id => {
-//   realm.write((_title, _author, _details, _image) => {
-//     let book = realm
-//       .objects('books')
-//       .filter(userObj => userObj.recordID === id);
-//     if (book) {
-//       book.title = _title;
-//       book.author = _author;
-//       book.details = _details;
-//       book.image = _image;
-//     }
-//   });
-// };
+let updateBook = (id,_title, _author, _details, _image) => {
+    realm.write(() => {
+        let book = realm
+        .objects('books')
+        .filter(userObj => userObj.recordID === id)[0];
+        console.log(book);
+    if (book) {
+      book.title = _title != '' ? _title : book.title;
+      book.author = _author != '' ? _author : book.author;
+      book.details = _details != '' ? _details : book.details;
+      book.image = _image != '' ? _image : book.image;
+    }
+  });
+};
+
+
+
 export default realm;
 
-export {getAllBooks, addBook, deleteBook};
+export {getAllBooks, addBook, deleteBook, updateBook};

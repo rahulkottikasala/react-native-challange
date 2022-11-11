@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   Button,
   FlatList,
   Image,
@@ -10,10 +11,11 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {addBook, deleteBook, getAllBooks} from './realm';
+import {addBook, deleteBook, getAllBooks, updateBook} from './realm';
 
 const App = () => {
   const [addStatus, setAddStatus] = useState(false);
+  const [updateStatus, setUpdateStatus] = useState(false);
   const [books, setBooks] = useState(getAllBooks());
 
   //details
@@ -32,7 +34,6 @@ const App = () => {
   };
 
   const renderItem = ({item}) => {
-    console.log(item);
     return (
       <View
         style={{
@@ -43,13 +44,12 @@ const App = () => {
           borderRadius: 10,
           flexDirection: 'row',
         }}>
-      
         {/* --------------------Image container---------------------- */}
         <View style={{width: '32%'}}>
           {item.image != '' ? (
             <Image
               style={{width: '100%', height: '100%'}}
-              source={{uri: item.image}}  
+              source={{uri: item.image}}
             />
           ) : (
             <View
@@ -101,6 +101,15 @@ const App = () => {
                 backgroundColor: 'blue',
                 alignItems: 'center',
                 justifyContent: 'center',
+              }}
+              onPress={() => {
+                cleatInputValue();
+                setUpdateStatus(true);
+                setId(item.recordID);
+                // setTitle(item.title)
+                // setAuthor(item.author)
+                // setDetails(item.details)
+                // setImage(item.image)
               }}>
               <Text style={{fontSize: 10, fontWeight: 'bold'}}>Update</Text>
             </TouchableHighlight>
@@ -113,7 +122,6 @@ const App = () => {
                 justifyContent: 'center',
               }}
               onPress={() => {
-                console.log('bfrr', item);
                 deleteBook(item.recordID);
                 setBooks(getAllBooks);
               }}>
@@ -127,7 +135,7 @@ const App = () => {
 
   return (
     <View style={{flex: 1, padding: 30, backgroundColor: 'black'}}>
-      {addStatus ? (
+      {addStatus | updateStatus ? (
         <View
           style={{
             padding: 10,
@@ -135,23 +143,35 @@ const App = () => {
             borderColor: 'white',
             borderRadius: 10,
           }}>
-          <TextInput
-            style={{
-              backgroundColor: 'white',
-              color: 'pink',
-              fontSize: 16,
-              paddingHorizontal: 10,
-              marginBottom: 5,
-              borderTopRightRadius: 10,
-              borderTopLeftRadius: 10,
-            }}
-            placeholder="Book Id"
-            placeholderTextColor={'grey'}
-            maxLength={3}
-            onChangeText={text => setId(text)}
-            value={id}
-            keyboardType={'phone-pad'}
-          />
+          {updateStatus ? (
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginBottom: 10,
+                color: 'white',
+              }}>
+              Update Book
+            </Text>
+          ) : (
+            <TextInput
+              style={{
+                backgroundColor: 'white',
+                color: 'pink',
+                fontSize: 16,
+                paddingHorizontal: 10,
+                marginBottom: 5,
+                borderTopRightRadius: 10,
+                borderTopLeftRadius: 10,
+              }}
+              placeholder="Book Id"
+              placeholderTextColor={'grey'}
+              maxLength={3}
+              onChangeText={text => setId(text)}
+              value={id}
+              keyboardType={'phone-pad'}
+            />
+          )}
           <TextInput
             style={{
               backgroundColor: 'white',
@@ -204,25 +224,50 @@ const App = () => {
             onChangeText={text => setImage(text)}
             value={image}
           />
-          <TouchableHighlight
-            style={{
-              width: '100%',
-              backgroundColor: 'pink',
-              height: 50,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderBottomRightRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}
-            onPress={() => {
-              if (id != '' && title != '') {
-                addBook(id, title, author, details, image);
+          {updateStatus ? (
+            <TouchableHighlight
+              style={{
+                width: '100%',
+                backgroundColor: 'pink',
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomRightRadius: 10,
+                borderBottomLeftRadius: 10,
+              }}
+              onPress={() => {
+                updateBook(id, title, author, details, image);
                 setBooks(getAllBooks);
                 cleatInputValue();
-              }
-            }}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Add</Text>
-          </TouchableHighlight>
+                setUpdateStatus(false);
+                Alert.alert('Updated');
+              }}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Update</Text>
+            </TouchableHighlight>
+          ) : (
+            <View>
+              <TouchableHighlight
+                style={{
+                  width: '100%',
+                  backgroundColor: 'pink',
+                  height: 50,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderBottomRightRadius: 10,
+                  borderBottomLeftRadius: 10,
+                }}
+                onPress={() => {
+                  if (id != '' && title != '') {
+                    addBook(id, title, author, details, image);
+                    setBooks(getAllBooks);
+                    cleatInputValue();
+                    setAddStatus(false);
+                  }
+                }}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Add</Text>
+              </TouchableHighlight>
+            </View>
+          )}
           <TouchableHighlight
             style={{
               height: 30,
@@ -231,7 +276,10 @@ const App = () => {
               justifyContent: 'center',
               marginTop: 10,
             }}
-            onPress={() => setAddStatus(false)}>
+            onPress={() => {
+              setAddStatus(false);
+              setUpdateStatus(false);
+            }}>
             <Text style={{fontWeight: 'bold', color: 'black'}}>Go Back</Text>
           </TouchableHighlight>
         </View>
@@ -243,8 +291,11 @@ const App = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onPress={() => setAddStatus(true)}>
-          <Text style={{fontWeight: 'bold'}}>Add a Books</Text>
+          onPress={() => {
+            cleatInputValue();
+            setAddStatus(true);
+          }}>
+          <Text style={{fontWeight: 'bold'}}>Add a New Books</Text>
         </TouchableHighlight>
       )}
 
