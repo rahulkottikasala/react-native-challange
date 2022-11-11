@@ -1,8 +1,11 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, TouchableHighlight, View } from 'react-native'
 import  Icon  from 'react-native-vector-icons/MaterialIcons'
 
+import { useNavigation } from '@react-navigation/native';
 const Header = (props) => {
+  
+  const navigation = useNavigation();
   return (
     <View>
 
@@ -21,7 +24,10 @@ const Header = (props) => {
     <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
       Books
     </Text>
+    <TouchableHighlight onPress={() => navigation.navigate('Cart')} >
+
     <Icon name="shopping-cart" size={25} color="black" />
+    </TouchableHighlight>
   </View>
   <View
     style={{

@@ -10,8 +10,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.13",
+    "@react-navigation/stack": "^6.3.4",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-gesture-handler": "^2.8.0",
+    "react-native-safe-area-context": "^4.4.1",
+    "react-native-screens": "^3.18.2",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.0"
