@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { FlatList, Image, Text, TouchableHighlight, View } from 'react-native'
 import {useSelector, useDispatch} from 'react-redux';
-import { cartItem } from '../actions/cart';
+import { removeToCart } from '../actions/cart';
 
 
 const Cart = () => {
@@ -11,7 +11,7 @@ const Cart = () => {
     
     handleRemoveToCart =(item) => {
       
-       dispatch(cartItem(cartList.filter((x) => x.id !== item.id)))
+       dispatch(removeToCart(item))
        
     }
 

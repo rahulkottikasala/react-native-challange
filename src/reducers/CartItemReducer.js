@@ -1,4 +1,4 @@
-import {CART_COUNT, CART_ITEM} from '../constants';
+import { ADD_TO_CART, REMOVE_TO_CART} from '../constants';
 const initialValue = {
   cart: [],
 };
@@ -6,11 +6,16 @@ const initialValue = {
 export const CartListRedecer = (state = initialValue, action) => {
   switch (action.type) {
 
-      case CART_ITEM:
+      case ADD_TO_CART:
         return {
           ...state,
-          cart:action.payload,
+          cart: action.value,
         }
+        case REMOVE_TO_CART:
+          return {
+            ...state,
+            cart:state.cart.filter((x) => x.id !== action.value.id,)
+          }
       default:
         return state;
   }

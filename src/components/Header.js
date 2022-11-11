@@ -24,7 +24,7 @@ const Header = (props) => {
     <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
       Books
     </Text>
-    <TouchableHighlight onPress={() => navigation.navigate('Cart')} >
+    <TouchableHighlight style={{width:40, height:'100%', alignItems:'center', justifyContent:'center'}} underlayColor={'white'} onPress={() => navigation.navigate('Cart')} >
 
     <Icon name="shopping-cart" size={25} color="black" />
     </TouchableHighlight>
@@ -39,7 +39,7 @@ const Header = (props) => {
         borderRadius: 20,
         position: 'absolute',
         top: 10,
-        right: 10,
+        right: 12,
     }}>
     <Text style={{fontSize: 10, color: 'white'}}>{props.count}</Text>
   </View>
