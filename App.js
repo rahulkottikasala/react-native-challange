@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid, StyleSheet, View, Dimensions, SafeAreaView} from 'react-native';
+import {
+  PermissionsAndroid,
+  StyleSheet,
+  View,
+  Dimensions,
+  SafeAreaView,
+} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
@@ -52,19 +58,32 @@ const App = () => {
         />
       </MapView>
       <GooglePlacesAutocomplete
-
+        fetchDetails={true}
+        
+        onPress={(data, details = null) => {
+          setLocation({
+            latitude: details?.geometry?.location.lat,
+            longitude: details?.geometry?.location.lng,
+          })
+        }}
+        textInputProps={{
+          placeholderTextColor: 'grey',
+          returnKeyType: "search"
+        }}
         styles={{
           description: {
-            fontWeight: 'bold',
+            fontWeight: '400',
+            color: 'grey',
+
           },
-          
+
           textInputContainer: {
             backgroundColor: 'grey',
           },
           textInput: {
-            height: 38,
-            marginHorizontal: 0,
-            color: '#5d5d5d',
+            height: 44,
+            marginHorizontal: 10,
+            color: 'black',
             fontSize: 16,
             borderWidth: 0,
           },
@@ -72,27 +91,27 @@ const App = () => {
             color: '#1faadb',
           },
           textInputContainer: {
-            backgroundColor:'rgba(0,0,0,0)',
-            top:20,
-            width:screenWidth-10 ,
-            borderWidth:0,
+            backgroundColor: 'transparent',
+            top: 20,
+            width: screenWidth - 10,
+            borderWidth: 0,
           },
           listView: {
             color: 'black', //To see where exactly the list is
             zIndex: 1000, //To popover the component outwards
             position: 'absolute',
-            top: 45
+            top: 65,
           },
         }}
         placeholder="Search bar"
         query={{
-          key: {GOOGLE_PLACES_API_KEY},
+          key: GOOGLE_PLACES_API_KEY,
           language: 'en',
         }}
         GooglePlacesDetailsQuery={{
           fields: 'geometry',
         }}
-      />  
+      />
     </SafeAreaView>
   );
 };
