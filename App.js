@@ -9,7 +9,7 @@ import {
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-const GOOGLE_PLACES_API_KEY = 'AIzaSyDRKyUzBNnGeLdKXfL0xZmkHmQueJs5z5A';
+const GOOGLE_PLACES_API_KEY = 'Your Google maps API Key Here';
 const screenWidth = Dimensions.get('window').width;
 
 const App = () => {
