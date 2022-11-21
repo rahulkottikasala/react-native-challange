@@ -1,7 +1,7 @@
 import {View, Text, TextInput, TouchableHighlight, Alert} from 'react-native';
 import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
-import {log} from 'react-native-reanimated';
+import {log, set} from 'react-native-reanimated';
 
 const Login = ({navigation}) => {
   const [userName, setUserName] = useState('');
