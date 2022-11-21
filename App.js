@@ -14,7 +14,7 @@ const MyStack = () => (
     <Stack.Navigator>
    
     {/* <Stack.Screen name="Login" component={Login} /> */}
-    <Stack.Screen name="MobileLogin" component={MobileLogin} />
+    {/* <Stack.Screen name="MobileLogin" component={MobileLogin} /> */}
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="List" component={List} />
     <Stack.Screen name="AddItem" component={AddItem} />
