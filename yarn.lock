@@ -1601,7 +1601,7 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.3.0.tgz"
   "version" "1.3.0"
 
-"@react-native-firebase/app@^16.4.5", "@react-native-firebase/app@16.4.5":
+"@react-native-firebase/app@^16.4.5", "@react-native-firebase/app@16.4.5", "@react-native-firebase/app@16.4.6":
   "integrity" "sha512-inpayjXGvPDkkAKCm3Cy5EcFFokCqYusaB4gZ5HeHVjLYbr0ce+/Sr6YvcDNy0ZlH3wPY+wpXy7y1YUTifbCtw=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-16.4.5.tgz"
   "version" "16.4.5"
@@ -1609,6 +1609,14 @@
     "@expo/config-plugins" "^5.0.4"
     "opencollective-postinstall" "^2.0.1"
     "superstruct" "^0.6.2"
+
+"@react-native-firebase/auth@^16.4.6":
+  "integrity" "sha512-le9SkPa7xNawHa58xyNE6ZzBLseVOz7LA1qYZDYrwqiVYZ6vGrHCiV9wRDmEz2MgQD2znigZnsUNd4p5RHvMWw=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-16.4.6.tgz"
+  "version" "16.4.6"
+  dependencies:
+    "@expo/config-plugins" "^5.0.4"
+    "plist" "^3.0.5"
 
 "@react-native-firebase/database@^16.4.5":
   "integrity" "sha512-A/X3R/OkGemf07ON6nr9upEqzEtbyxGfchI0OPNxzJJJpVFn/7bM8n/Kvy3RiTqAJfiJZZ2dVY/0v+SLr0MHEg=="
