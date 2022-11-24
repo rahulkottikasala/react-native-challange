@@ -1,18 +1,39 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {COLOR} from '../constants/color';
+import auth from '@react-native-firebase/auth';
 
 export default function Otp(props) {
-  const mobileNumber = props.route.params.mobileNumber !== null
-        ? props.route.params.mobileNumber
-        : '0000000000';
+  const [code, setCode] = useState(null);
+  const mobileNumber =
+    props.route.params.mobileNumber !== null
+      ? props.route.params.mobileNumber
+      : '0000000000';
+  let confirm = props.route.params.confirm;
+  //firebase authentication
 
-        const handleOtp = () => {
-            console.log('clicked');
-        }
+  const handleOtp = async () => {
+    if (code !== null) {
+      try {
+        await confirm.confirm(code);
+        auth().onAuthStateChanged(user => {
+          if (user) {
+            response = null;
+            props.navigation.navigate('HomePage');
+          } else {
+            Alert.alert('Authentication failed');
+          }
+        });
+        props.navigation.navigate('HomePage');
+      } catch (error) {
+        console.log(error);
+        Alert.alert('Invalid code');
+      }
+    }
+  };
 
   return (
     <View style={StyleSheet.container}>
@@ -27,26 +48,28 @@ export default function Otp(props) {
         <View style={styles.inputContainer}>
           <OTPInputView
             pinCount={6}
+            // code={code}
             codeInputFieldStyle={{
               backgroundColor: 'white',
               borderRadius: 5,
-              borderWidth:1,
+              borderWidth: 1,
               borderColor: COLOR.textFieldColor,
               justifyContent: 'center',
               fontSize: 22,
               fontWeight: 'bold',
-              marginLeft:4,
+              marginLeft: 4,
               color: COLOR.buttonColor,
             }}
             keyboardType={'phone-pad'}
             //   onCodeFilled={() => this.props.navigation.navigate('StudentDetails')}
 
-            //   onCodeFilled = {(code => {
-            //     console.log(`Code is ${code}, you are good to go!`)
-            // })}
+            onCodeFilled={code => {
+              console.log(`Code is ${code}, you are good to go!`);
+              setCode(code);
+            }}
           />
         </View>
-        <TouchableHighlight style={styles.button} onPress={() => handleOtp()}>
+        <TouchableHighlight style={styles.button} onPress={handleOtp}>
           <Text style={styles.buttonText}>Verify OTP</Text>
         </TouchableHighlight>
         <View style={styles.contactUsContainer}>
@@ -71,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop:80
+    paddingTop: 80,
   },
   title: {
     fontSize: 24,
@@ -80,8 +103,8 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 16,
-    color:'#000',
-    marginTop:15
+    color: '#000',
+    marginTop: 15,
   },
   verifiedNumber: {
     marginTop: 5,
@@ -123,7 +146,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     color: 'white',
   },
 
