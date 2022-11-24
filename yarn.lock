@@ -1616,6 +1616,11 @@
     "@expo/config-plugins" "^5.0.4"
     "plist" "^3.0.5"
 
+"@react-native-firebase/storage@^16.4.6":
+  "integrity" "sha512-m5WYVAooTbe3p4E5ZQvsxMOsBf/ViJfD1uksKfM6cTtXuFo13zSfQkS08t69//5H+MtC7qN1hMpWaoN0UuOwbg=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/storage/-/storage-16.4.6.tgz"
+  "version" "16.4.6"
+
 "@react-native/assets@1.0.0":
   "integrity" "sha512-KrwSpS1tKI70wuKl68DwJZYEvXktDHdZMG0k2AXD/rJVSlB23/X2CB2cutVR0HwNMJIal9HOUOBB2rVfa6UGtQ=="
   "resolved" "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -6116,6 +6121,11 @@
   "integrity" "sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
   "version" "0.70.3"
+
+"react-native-image-picker@^4.10.1":
+  "integrity" "sha512-tPA9UtboEsZ8qtm7pX9WInlo9sf0J2ArJgP4uVgKw1QNrwkRX/kZQ6uzOSN747Dhj9WS42ce4RN+rFK86J13DQ=="
+  "resolved" "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-4.10.1.tgz"
+  "version" "4.10.1"
 
 "react-native-otp-verify@^1.1.4":
   "integrity" "sha512-bgfEinDSnjlKEHwp7mB4ejU9hV3ObQvn5ML670OKPhdMn8iuOouPHrlcnrNf/VSSE/74QCTSiqGMZfca165jrw=="
