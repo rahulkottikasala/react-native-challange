@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
-const PriceTable = ({details}) => {
+const PriceTable = ({details, addToCart}) => {
   return (
     <LinearGradient
       start={{x: 1, y: 0}}
@@ -49,7 +49,7 @@ const PriceTable = ({details}) => {
             </View>
           </View>
           <View style={styles.addToCartButtonContainer}>
-            <TouchableHighlight style={styles.addToCartButton}>
+            <TouchableHighlight style={styles.addToCartButton} onPress={() => addToCart(details)}>
               <Text style={styles.addToCartButtonText}>Add</Text>
             </TouchableHighlight>
           </View>

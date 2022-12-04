@@ -3,8 +3,7 @@ import React from 'react'
 import FeaturedProduct from '../Homepage/FeaturedProduct';
 
 const Suggestion = ({navigation, urlKey, goToProduct}) => {
-    
-    console.log(urlKey);
+
   return (
    <FeaturedProduct name={"You Might Also Like"} goToProduct={goToProduct} suggestion={true} />
   )

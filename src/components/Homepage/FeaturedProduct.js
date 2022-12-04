@@ -8,14 +8,14 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 import LinearGradient from 'react-native-linear-gradient';
-import {TouchableHighlight} from 'react-native-gesture-handler';
-import {MEDIA_PATH} from '../../constants/MediaPath';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { MEDIA_PATH } from '../../constants/MediaPath';
 
-const FeaturedProduct = ({goToProduct, suggestion, name}) => {
+const FeaturedProduct = ({ goToProduct, addToCart, suggestion, name }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     fetch(
@@ -53,8 +53,8 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
         showsHorizontalScrollIndicator={false}>
         <LinearGradient
           style={styles.productsContainer}
-          start={{x: 1, y: 0}}
-          end={{x: 1, y: 1}}
+          start={{ x: 1, y: 0 }}
+          end={{ x: 1, y: 1 }}
           colors={['#fff', '#fff', '#f9bbe6']}>
           {data.map((item, index) => (
             <TouchableHighlight
@@ -69,7 +69,7 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
               <View>
                 <View style={styles.imageContainer}>
                   <Image
-                    style={{width: '60%', height: '100%'}}
+                    style={{ width: '60%', height: '100%' }}
                     source={{
                       // uri: 'https://rukminim1.flixcart.com/image/832/832/xif0q/chocolate/a/d/5/-original-imagjyghu2tqxvcq.jpeg?q=70',
                       uri: MEDIA_PATH + item.imageUrl,
@@ -97,6 +97,7 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
                         style={styles.addToCartButton}
                         underlayColor="#fff"
                         onPress={() => {
+                          addToCart(item);
                           Alert.alert('Added to cart');
                         }}>
                         <Icon name="add" size={25} color="red" />
@@ -108,8 +109,7 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
                 <ImageBackground
                   source={require('../../../assets/images/offer.png')}
                   style={styles.offer}>
-                  <Text
-                    style={{fontSize: 10, fontWeight: 'bold', color: 'white'}}>
+                  <Text style={styles.offerText}>
                     {item.specialPrice !== 0
                       ? Math.ceil(
                           (100 / item.unitPrice) *
@@ -121,10 +121,9 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
                         )}
                     %
                   </Text>
-                  <Text style={{fontSize: 8, fontWeight: 'bold'}}>Off</Text>
+                  <Text style={styles.offerText}>Off</Text>
                 </ImageBackground>
                 {/* ) : null} */}
-               
               </View>
             </TouchableHighlight>
           ))}
@@ -137,7 +136,7 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
 export default FeaturedProduct;
 
 const styles = StyleSheet.create({
-  container: {width: width, height: 280, backgroundColor: '#fff'},
+  container: { width: width, height: 280, backgroundColor: '#fff' },
   headerContainer: {
     flexDirection: 'row',
     height: 40,
@@ -145,10 +144,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 20,
   },
-  headerText: {fontSize: 19, fontWeight: 'bold', color: '#000'},
-  expandContainer: {flexDirection: 'row'},
-  expandText: {color: 'red', fontWeight: 'bold', fontSize: 14},
-  productsContainerOutline: {backgroundColor: 'pink'},
+  headerText: { fontSize: 19, fontWeight: 'bold', color: '#000' },
+  expandContainer: { flexDirection: 'row' },
+  expandText: { color: 'red', fontWeight: 'bold', fontSize: 14 },
+  productsContainerOutline: { backgroundColor: 'pink' },
   productsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -181,8 +180,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  productDetails: {paddingHorizontal: 8, paddingVertical: 5},
-  productName: {color: '#000', fontSize: 16, fontWeight: 'bold', height: 40},
+  productDetails: { paddingHorizontal: 8, paddingVertical: 5 },
+  productName: { color: '#000', fontSize: 16, fontWeight: 'bold', height: 40 },
   originalPrice: {
     color: 'grey',
     fontSize: 10,
@@ -195,8 +194,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  toCartContainer: {flexDirection: 'row', justifyContent: 'space-between'},
-  itemQuantity: {fontSize: 14, fontWeight: '600', color: '#000'},
+  toCartContainer: { flexDirection: 'row', justifyContent: 'space-between' },
+  itemQuantity: { fontSize: 14, fontWeight: '600', color: '#000' },
   addToCartButton: {
     width: 25,
     height: 25,
@@ -213,4 +212,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  offerText: { fontSize: 10, fontWeight: 'bold', color: 'white' },
 });

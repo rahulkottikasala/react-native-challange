@@ -6,28 +6,113 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Cartpage/Header';
-import {StackActions} from '@react-navigation/native';
+import { StackActions, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FeaturedProduct from '../components/Homepage/FeaturedProduct';
 import CartItem from '../components/Cartpage/CartItem';
 import Checkout from '../components/Cartpage/Checkout';
-const {width} = Dimensions.get('window');
+import {
+  addToCartData,
+  emptyCartList,
+  getAllCartItems,
+  removeFromCart,
+  updateCartData,
+} from '../../realm';
 
-const Cart = ({navigation}) => {
+const { width } = Dimensions.get('window');
+
+const Cart = ({ navigation }) => {
+  const [cartData, setCartData] = useState(getAllCartItems());
+  const [count, setCount] = useState(0);
+  const [load, setLoad] = useState(false);
+
   const popAction = StackActions.pop();
+
+  //find count of Product
+  useFocusEffect(() => {
+    let count = 0;
+    for (let i = 0; i < cartData.length; i++) {
+      count += cartData[i].count;
+    }
+    setCount(count);
+  });
 
   const backToSrceen = () => {
     navigation.dispatch(popAction);
   };
 
   const goToProduct = item => {
-    navigation.navigate('Product', {urlKey: item.urlKey});
+    navigation.navigate('Product', { urlKey: item.urlKey });
+  };
+
+  const addToCart = data => {
+    setLoad(!load);
+    let count = 1;
+    let cartItem = cartData.filter(key => key.recordId === data.urlKey);
+    let newCount = cartItem[0]?.count + 1;
+
+    // setCount(cartItem.count++);
+    cartData.find(key => key.recordId === data.urlKey)
+      ? updateCartData(
+          data.urlKey,
+          data.prName,
+          data.imageUrl,
+          data.unitPrice,
+          data.specialPrice,
+          newCount,
+        )
+      : addToCartData(
+          data.urlKey,
+          data.prName,
+          data.imageUrl,
+          data.unitPrice,
+          data.specialPrice,
+          count,
+        );
+    Alert.alert('Item added to cart');
+  };
+
+  const incrementItem = data => {
+    setLoad(!load);
+    let cartItem = cartData.filter(key => key.recordId === data.recordId);
+    let newCount = cartItem[0]?.count + 1;
+
+    updateCartData(
+      data.recordId,
+      data.prName,
+      data.imageUrl,
+      data.unitPrice,
+      data.specialPrice,
+      newCount,
+    );
+  };
+
+  const decrementItem = data => {
+    setLoad(!load);
+    let cartItem = cartData.filter(key => key.recordId === data.recordId);
+    let newCount = cartItem[0]?.count - 1;
+    data.count == 1
+      ? removeFromCart(data.recordId)
+      : updateCartData(
+          data.recordId,
+          data.prName,
+          data.imageUrl,
+          data.unitPrice,
+          data.specialPrice,
+          newCount,
+        );
+  };
+
+  const emptyCart = () => {
+    setLoad(!load);
+    Alert.alert('Remove All Items');
+    emptyCartList();
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar
         animated={true}
         backgroundColor="#192f6a"
@@ -35,19 +120,22 @@ const Cart = ({navigation}) => {
         showHideTransition="fade"
         hidden={false}
       />
-      <Header backToScreen={backToSrceen} />
-      <CartItem/>
+      <Header backToScreen={backToSrceen} count={count} emptyCart={emptyCart} />
+      <CartItem
+        data={cartData}
+        increment={incrementItem}
+        decrement={decrementItem}
+      />
       <Divider />
       <OfferBadge />
       <Divider />
       <FeaturedProduct
+        addToCart={addToCart}
         name={'You Might Also Like'}
         goToProduct={goToProduct}
         suggestion={false}
       />
-      <Checkout/>
-      
-
+      <Checkout data={cartData} />
     </ScrollView>
   );
 };
@@ -55,7 +143,7 @@ const Cart = ({navigation}) => {
 export default Cart;
 
 const Divider = () => (
-  <View style={{width: width, height: 5, backgroundColor: '#4c669f'}}></View>
+  <View style={{ width: width, height: 5, backgroundColor: '#4c669f' }}></View>
 );
 
 const OfferBadge = () => (
