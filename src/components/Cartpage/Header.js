@@ -1,17 +1,23 @@
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const Header = ({backToScreen, check}) => {
+const Header = ({backToScreen, count}) => {
   return (
     <View style={styles.headerContainer}>
-        <View style={styles.leftButtonGroup}>
-        <TouchableHighlight style={styles.backButton} underlayColor='#192f6a' onPress={() => backToScreen()}>
-        <Icon name="arrow-back" size={30} color="#fff"/>
+      <View style={styles.leftButtonGroup}>
+        <TouchableHighlight
+          style={styles.backButton}
+          underlayColor="#192f6a"
+          onPress={() => backToScreen()}>
+          <Icon name="arrow-back" size={30} color="#fff" />
         </TouchableHighlight>
-        <Text style={styles.text}>Cart (0)</Text>
+        <Text style={styles.text}>Cart ({count})</Text>
       </View>
-      <TouchableHighlight style={styles.emptyButton} underlayColor="#192f6a" onPress={() => {}}>
-       <Text style={styles.text}>Empty Cart</Text>
+      <TouchableHighlight
+        style={styles.emptyButton}
+        underlayColor="#192f6a"
+        onPress={() => {}}>
+        <Text style={styles.text}>Empty Cart</Text>
       </TouchableHighlight>
     </View>
   );
@@ -33,13 +39,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emptyButton:{
+  emptyButton: {
     justifyContent: 'center',
-    
   },
-  text:{
-    fontSize:15,
-    fontWeight:'bold',
-    color:'#fff'
-  }
+  text: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
 });

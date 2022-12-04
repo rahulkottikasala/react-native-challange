@@ -1,7 +1,7 @@
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const Header = ({backToScreen, goToCartPage}) => {
+const Header = ({backToScreen, goToCartPage, count}) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableHighlight style={styles.backButton} underlayColor="#fff" onPress={() => backToScreen()}>
@@ -16,7 +16,7 @@ const Header = ({backToScreen, goToCartPage}) => {
         </TouchableHighlight>
       </View>
       <View style={styles.cartCount}>
-        <Text style={{fontSize: 10, fontWeight: '700'}}>2</Text>
+        <Text style={{fontSize: 10, fontWeight: '700'}}>{count}</Text>
       </View>
     </View>
   );

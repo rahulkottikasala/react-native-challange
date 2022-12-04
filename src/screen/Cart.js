@@ -14,9 +14,17 @@ import FeaturedProduct from '../components/Homepage/FeaturedProduct';
 import CartItem from '../components/Cartpage/CartItem';
 import Checkout from '../components/Cartpage/Checkout';
 const {width} = Dimensions.get('window');
+import {useSelector, useDispatch} from 'react-redux';
+import {addToCart, removeFromCart} from '../actions/cart';
+import {useEffect} from 'react';
 
-const Cart = ({navigation}) => {
+const Cart = ({navigation},props) => {
   const popAction = StackActions.pop();
+  const dispatch = useDispatch();
+  const cartList = useSelector(state => state.cartList.cart);
+  const cartCount = useSelector(state => state.cartCount.count);
+  let newArray = [];
+  useEffect(() => {}, [newArray]);
 
   const backToSrceen = () => {
     navigation.dispatch(popAction);
@@ -24,6 +32,37 @@ const Cart = ({navigation}) => {
 
   const goToProduct = item => {
     navigation.navigate('Product', {urlKey: item.urlKey});
+  };
+
+  const addToCartItem = data => {
+    let newData = {
+      data: data,
+      count: 1,
+    };
+    try {
+      cartList.find(key => key.data.urlKey === data.urlKey)
+        ? (newArray = [...cartList])
+        : (newArray = [...cartList, newData]);
+      dispatch(addToCart(newArray));
+      cartList.map(key =>
+        key.data.urlKey === data.urlKey ? key.count++ : key.count,
+      );
+      Alert.alert('Cart', `Added to cart${data.prName}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const removeItem = data => {
+    newArray = [...cartList];
+    dispatch(addToCart(newArray));
+    cartList.find(key => key.count === 1)
+      ? dispatch(removeFromCart(data))
+      : cartList.map(key =>
+          key.data.urlKey === data.urlKey ? key.count-- : key.count,
+        );
+    // dispatch(addToCart(...cartList));
+
+    Alert.alert('Cart', `Remove from cart${data.prName}`);
   };
 
   return (
@@ -35,19 +74,23 @@ const Cart = ({navigation}) => {
         showHideTransition="fade"
         hidden={false}
       />
-      <Header backToScreen={backToSrceen} />
-      <CartItem/>
+      <Header backToScreen={backToSrceen} count={cartCount} />
+      <CartItem
+        data={cartList}
+        removeItem={removeItem}
+        addToCart={addToCartItem}
+      />
       <Divider />
       <OfferBadge />
+      <Text style={{color: '#000'}}></Text>
       <Divider />
       <FeaturedProduct
         name={'You Might Also Like'}
         goToProduct={goToProduct}
         suggestion={false}
+        addToCart={addToCartItem}
       />
-      <Checkout/>
-      
-
+      <Checkout data={cartList} count={cartCount}/>
     </ScrollView>
   );
 };

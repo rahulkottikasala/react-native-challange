@@ -14,8 +14,9 @@ const {width} = Dimensions.get('window');
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {MEDIA_PATH} from '../../constants/MediaPath';
+import { addToCart } from '../../actions/cart';
 
-const FeaturedProduct = ({goToProduct, suggestion, name}) => {
+const FeaturedProduct = ({goToProduct, suggestion, name, addToCart}) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     fetch(
@@ -71,7 +72,6 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
                   <Image
                     style={{width: '60%', height: '100%'}}
                     source={{
-                      // uri: 'https://rukminim1.flixcart.com/image/832/832/xif0q/chocolate/a/d/5/-original-imagjyghu2tqxvcq.jpeg?q=70',
                       uri: MEDIA_PATH + item.imageUrl,
                     }}
                   />
@@ -97,7 +97,7 @@ const FeaturedProduct = ({goToProduct, suggestion, name}) => {
                         style={styles.addToCartButton}
                         underlayColor="#fff"
                         onPress={() => {
-                          Alert.alert('Added to cart');
+                          addToCart(item)
                         }}>
                         <Icon name="add" size={25} color="red" />
                       </TouchableHighlight>
