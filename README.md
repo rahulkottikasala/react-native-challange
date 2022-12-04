@@ -55,6 +55,11 @@ This template follows a very simple project structure:
       - `Checkout.js`
   - `constants`
     - `MediaPath`
+  - `actions`
+    - `cart.js`
+  - `reducers
+    - `CartCountReducer.js`
+    - `CartListReducer.js`
   - `navigation`
     - `StackNav`
     - `TabNav`
@@ -66,6 +71,9 @@ This template follows a very simple project structure:
     - `Cart.js`
     - `Search.js`
     - `Profile.js`
+- `store`
+  -`configStore.js`:redux configuration
 - `App.js`: Main component that starts your whole app.
 - `index.js`: Entry point of your application as per React-Native standards.
+
 
