@@ -3,7 +3,6 @@ import React from 'react';
 import { MEDIA_PATH } from '../../constants/MediaPath';
 
 const CartItem = ({ data, increment, decrement }) => {
-  console.log('{{{{{{{{', data);
   return (
     <View
       style={{
