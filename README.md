@@ -40,7 +40,7 @@
 ### Realestate App UI : https://github.com/rahulkottikasala/react-native-challange/tree/RealestateAppUI
 
 
-# How to Clone a Specific Branch
+## How to Clone a Specific Branch
 
 ### git clone --branch <branchname> <remote-repo-url>
 ## OR
