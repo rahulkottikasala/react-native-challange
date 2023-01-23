@@ -1,0 +1,5 @@
+cd android
+
+./gradlew SigningReport
+
+https://firebase.google.com/docs/auth/android/phone-auth

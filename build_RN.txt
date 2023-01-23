@@ -1,0 +1,7 @@
+cd android
+gradlew clean
+gradlew assembleRelease
+
+
+
+project-android-app-build-output-apk-release-release-apk

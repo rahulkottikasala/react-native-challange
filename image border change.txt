@@ -1,0 +1,3 @@
+imageStyle={{ borderRadius: 5}}
+
+//image border change without using overflow:'hidden'

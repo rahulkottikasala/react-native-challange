@@ -1,0 +1,7 @@
+npm i -g typescript //install 
+
+npx tsc --init // create typescript config file
+
+tsc // compile to js
+
+tsc --watch <filename.ts> //reload

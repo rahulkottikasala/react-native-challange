@@ -1,0 +1,51 @@
+cartItem = 0 => Cart.length
+
+Cart (Prod) =[{proId, count},{proId, count}]
+
+
+
+Redux => CartList => []
+
+NewUser (guest) => [] && Login [{},{}]
+
+... LoginPage => Update Redux && Merge Cart  => CartList
+
+
+ 
+
+User => CartList => [{},{}]
+
+
+
+empty CartList
+
+
+HomePage => HomePageProduct => Product    (fn: addToCart) => ReduxStore => 
+Cart => getItem <= ReduxStore
+
+Navigation
+
+
+
+
+
+--->
+# Modal
+# Stack reset
+# Loader
+# Redux toolkit
+# Auto slider => https://stackoverflow.com/questions/44475202/how-do-i-make-a-list-flatlist-automatically-scroll-through-the-elements-using
+
+
+HomePage Grid  fetchApi => data.slice(0,6) [ Grid => (npm install react-native-super-grid) ]
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+React Native Project 
+
+
+react-navigation — Application navigation
+redux — Application state management
+redux-thunk — Enabling asynchronous dispatching of actions
+jest — Javascript testing
+reselect — Selector library for Redux
+axios — Http Client
+fastlane — Automation tool
+
+https://medium.com/the-andela-way/how-to-structure-a-react-native-app-for-scale-a29194cd33fc

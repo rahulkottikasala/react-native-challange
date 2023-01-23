@@ -1,0 +1,1 @@
+tabBarLabelStyle: { textTransform:'none', fontSize: 8 },

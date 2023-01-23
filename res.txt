@@ -1,0 +1,1 @@
+I'm an aspiring programmer. I have strong technical skills, particularly in Mongodb,Express,React and Nodejs
